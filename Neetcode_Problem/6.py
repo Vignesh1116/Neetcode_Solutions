@@ -1,36 +1,37 @@
-# Sender
+from typing import List
 
-# string encode(vector<string> strs) {
-#     // ... your code
-#     return encoded_string;
-# }
+class Solution:
 
-# Receiver
+    def encode(self, strs: List[str]) -> str:
+        op=""
+        for i in strs:
+            op+=str(len(i))+i
+        return op
 
-# vector<string> decode(string s) {
-#     //... your code
-#     return strs;
-# }class Solution:
 
-def encode(self, strs: List[str]) -> str:
-        res = ""
-        for s in strs:
-            res += str(len(s)) + "#" + s
-        return res
 
-def decode(self, s: str) -> List[str]:
-        res = []
-        i = 0
-
-        while i < len(s):
-            j = i
-            while s[j] != '#':
-                j += 1
-            length = int(s[i:j])
-            i = j + 1
-            j = i + length
-            res.append(s[i:j])
-            i = j
-
-        return res
+    def decode(self, s: str) -> List[str]:
+        op = []
         
+        while s:
+            # find position of '#'
+            i = s.find("#")
+            
+            # extract number
+            num = int(s[:i])
+            
+            # extract string
+            item = s[i+1:i+1+num]
+            op.append(item)
+            
+            # move forward
+            s = s[i+1+num:]
+        
+        return op
+
+
+sol=Solution()
+print(sol.encode(["h2i","i","am","gokul"]))
+
+# why do we need #
+# why not just the numbers
